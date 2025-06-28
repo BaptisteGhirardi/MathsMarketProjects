@@ -1,0 +1,67 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def geometric_brownian_motion(S0, mu, sigma, T, n, seed=None):
+    """
+    Simule un mouvement brownien géométrique (GBM) pour les prix des actifs.
+    
+    Arguments:
+    - S0: Prix initial (> 0)
+    - mu: Drift (rendement annuel attendu)
+    - sigma: Volatilité annuelle
+    - T: Horizon temporel (années)
+    - n: Nombre de pas de temps
+    - seed: Graine aléatoire pour la reproductibilité
+    
+    Retourne:
+    - S: Prix simulés
+    - t: Tableau de temps
+    """
+    try:
+        # Validation des entrées
+        if S0 <= 0:
+            raise ValueError("Le prix initial (S0) doit être > 0.")
+        if sigma < 0:
+            raise ValueError("La volatilité (sigma) doit être >= 0.")
+        if T <= 0 or n <= 0:
+            raise ValueError("L'horizon temporel (T) et le nombre de pas (n) doivent être > 0.")
+        
+        # Fixer la graine aléatoire si fournie
+        if seed is not None:
+            np.random.seed(seed)
+        
+        # Calcul des incréments browniens et du processus de Wiener
+        dt = T / n  # Pas de temps
+        W = np.random.normal(0, np.sqrt(dt), n)  # Incréments browniens ~ N(0, sqrt(dt))
+        W = np.cumsum(W)  # Processus de Wiener (cumul des incréments)
+        t = np.linspace(0, T, n)  # Échelle de temps
+        
+        # Solution analytique du GBM
+        S = S0 * np.exp((mu - 0.5 * sigma**2) * t + sigma * W)
+        return S, t
+    
+    except ValueError as e:
+        print(f"Erreur : {e}")
+        return None, None
+
+# Exemple d'utilisation
+if __name__ == "__main__":
+    # Paramètres
+    S0 = 100  # Prix initial
+    mu = 0.05  # Drift (5% annuel)
+    sigma = 0.2  # Volatilité (20%)
+    T = 1  # Horizon : 1 an
+    n = 252  # Nombre de pas (jours de trading)
+    
+    # Simulation du GBM
+    gbm_path, time = geometric_brownian_motion(S0, mu, sigma, T, n, seed=42)
+    
+    if gbm_path is not None:
+        # Visualisation
+        plt.figure(figsize=(10, 6))
+        plt.plot(time, gbm_path, label="Prix de l'Actif (GBM)", color="r")
+        plt.xlabel("Temps (Années)")
+        plt.ylabel("Prix de l'Actif")
+        plt.title("Simulation de Mouvement Brownien Géométrique")
+        plt.legend()
+        plt.show()
