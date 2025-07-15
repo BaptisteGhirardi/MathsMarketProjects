@@ -60,11 +60,8 @@ def calculate_days_remaining(purchase_date, expiration_date):
         # On convertit les dates en objets datetime
         purchase_date = datetime.strptime(purchase_date, "%Y-%m-%d").date()
         expiration_date = datetime.strptime(expiration_date, "%Y-%m-%d").date()
-        today = date.today()
         
         # On vérifie que les dates sont valides
-        if today > expiration_date:
-            raise ValueError("La date d'expiration est déjà passée.")
         if purchase_date > expiration_date:
             raise ValueError("La date d'achat ne peut pas être après la date d'expiration.")
         
