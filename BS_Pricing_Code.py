@@ -14,8 +14,7 @@ def black_scholes_price(S0, K, r, sigma, T, option_type='call'):
     - T : Temps jusqu'à l'échéance (années, > 0).
     - option_type : Type d'option ('call' ou 'put').
     
-    Retourne :
-    - Prix de l'option."""
+    Cela retourne le prix de l'option."""
     try:
         if S0 <= 0:
             raise ValueError("Le prix actuel du sous-jacent (S0) doit être > 0.")
@@ -48,16 +47,15 @@ def black_scholes_price(S0, K, r, sigma, T, option_type='call'):
 
 
 def calculate_days_remaining(purchase_date, expiration_date):
-    """ Cela calcule le nombre de jours restants entre aujourd'hui et la date d'expiration.
+    """ Cela calcule le nombre de jours restants entre la date d'achat et la date d'expiration.
     
     Paramètres :
     - purchase_date : Date d'achat (format YYYY-MM-DD).
     - expiration_date : Date d'expiration (format YYYY-MM-DD).
     
-    Retourne :
-    - Temps restant en jours."""
+    Cela retourne le temps restant en jours."""
     try:
-        # On convertit les dates en objets datetime
+        # On convertit les dates en objets datetime pour les manipuler
         purchase_date = datetime.strptime(purchase_date, "%Y-%m-%d").date()
         expiration_date = datetime.strptime(expiration_date, "%Y-%m-%d").date()
         
@@ -108,9 +106,9 @@ def plot_payoff(K, premium, option_type):
     plt.show()
 
 
-# Point d'entrée du programme
+# Point d'entrée du programme qui s'execute automatiquement si on ouvre le fichier
 if __name__ == "__main__":
-    print("=== Calcul du Prix d'une Option Européenne avec Black-Scholes ===")
+    print("Calcul du Prix d'une Option Européenne avec Black-Scholes")
     try:
         # Entrées utilisateur
         S0 = float(input("Entrez le prix actuel du sous-jacent (S0, > 0) : "))
