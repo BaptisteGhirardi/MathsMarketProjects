@@ -2,8 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def geometric_brownian_motion(S0, mu, sigma, T, n, seed=None):
-    """
-    Simule un mouvement brownien géométrique (GBM) pour les prix des actifs.
+    """ Cela simule un mouvement brownien géométrique (GBM) pour les prix des actifs.
     
     Arguments:
     - S0: Prix initial (> 0)
@@ -15,8 +14,7 @@ def geometric_brownian_motion(S0, mu, sigma, T, n, seed=None):
     
     Retourne:
     - S: Prix simulés
-    - t: Tableau de temps
-    """
+    - t: Tableau de temps"""
     try:
         # Validation des entrées
         if S0 <= 0:
@@ -26,7 +24,7 @@ def geometric_brownian_motion(S0, mu, sigma, T, n, seed=None):
         if T <= 0 or n <= 0:
             raise ValueError("L'horizon temporel (T) et le nombre de pas (n) doivent être > 0.")
         
-        # Fixer la graine aléatoire si fournie
+        # Fixer la seed aléatoire si fournie
         if seed is not None:
             np.random.seed(seed)
         
@@ -62,6 +60,6 @@ if __name__ == "__main__":
         plt.plot(time, gbm_path, label="Prix de l'Actif (GBM)", color="r")
         plt.xlabel("Temps (Années)")
         plt.ylabel("Prix de l'Actif")
-        plt.title("Simulation de Mouvement Brownien Géométrique")
+        plt.title("Simulation d'un Mouvement Brownien Géométrique")
         plt.legend()
         plt.show()
