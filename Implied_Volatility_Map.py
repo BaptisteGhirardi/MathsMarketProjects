@@ -7,8 +7,7 @@ from matplotlib.ticker import ScalarFormatter
 from BS_Pricing_Code import black_scholes_price, calculate_days_remaining
 
 def vega(S0, K, r, sigma, T):
-    """ Calcule le Vega (sensibilité du prix à la volatilité).
-    Utile pour la méthode Newton-Raphson."""
+    """Calcule le Vega (sensibilité du prix à la volatilité). On utilise pour la méthode Newton-Raphson."""
 
     d1 = (np.log(S0 / K) + (r + 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
     return S0 * np.sqrt(T) * norm.pdf(d1)
